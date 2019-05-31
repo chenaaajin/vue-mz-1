@@ -1,28 +1,34 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <HelloOne  @a="twoName = $event" :hello="oneHello"/>
+    <helloTwo  @b="oneHello = $event"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import { mapState } from "vuex";
+import HelloOne from "@/components/HelloOne.vue";
+import HelloTwo from "@/components/HelloTwo.vue";
 export default {
-  name: 'app',
-  components: {
-    HelloWorld
-  }
-}
-</script>
+  data() {
+    return {
+      // oneName:this.$store.state.oneName,
+      // twoName:this.$store.state.twoName,
+      oneHello: ""
+    };
+  },
+  // mapStates辅助函数，是一个方法
+  // computed: mapState(["oneName", "twoName"]),
+  computed:{
+    ...mapState([
+      "oneName", 
+      "twoName"
+    ])
+  },
 
-<style lang="less">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+  components: {
+    HelloOne,
+    HelloTwo
+  }
+};
+</script>
